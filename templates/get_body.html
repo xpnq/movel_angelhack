@@ -1,0 +1,147 @@
+
+<html class="carbon">
+   <head>
+   <link rel='stylesheet' type='text/css' href={{ url_for('static', filename='thief.css') }}/>
+   <script>
+   function myFunction(url) {
+    window.open("http://docdisp-stage.factset.com:8090/getstory.cgi?e=false&s=fds&id="+url, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0");
+	}
+
+   </script>
+   <script>
+   function speakPhrase(phrase) {
+     // alert(phrase);
+   var msg = new SpeechSynthesisUtterance();
+   var voices = window.speechSynthesis.getVoices();
+   msg.voice = voices[10]; // Note: some voices don't support altering params
+   msg.voiceURI = 'native';
+   msg.volume = 1; // 0 to 1
+   msg.rate = 1; // 0.1 to 10
+   msg.pitch = 0; //0 to 2
+   msg.text = phrase;
+   msg.lang = 'en-US';
+   var t;
+   
+   msg.onend = function(e) {
+   return (event.elapsedTime);
+   };
+   
+   speechSynthesis.speak(msg);
+   }
+   
+</script>   
+   <script type="text/javascript" src="//cdn.factset.com/jquery/2.2.1/dist/jquery.min.js"></script>
+   <script type="text/javascript" src="//cdn.factset.com/lodash/4.3.0/dist/lodash.min.js"></script>
+   <script type="text/javascript" src="//cdn.factset.com/moment/2.12.0/moment.js"></script>
+   <script type="text/javascript" src="//cdn.factset.com/thief/3.5.0/js/thief.min.js"></script>
+   <script type="text/javascript">
+      $(document).ready(
+          function() {
+              $("#center").splitter('value', 400);
+              $("#left_menu").listbox();
+          }
+      );
+      var map= new Object();
+      window.onload = function() {
+         $('div.cart_button').click(
+               function(){
+                  doc_fn = $(this).siblings('.headline').text();
+                  alert(doc_fn+" has been added to your the cart");
+
+                                 }
+         );
+      };
+   </script>
+   <style type="text/css">
+
+   body{
+      font-size: 20px;
+   }
+   div.headline{
+      font-size: large;
+
+   }
+   div.headline a{
+      color: #00BFFF;
+   }
+
+   span.org{
+      color: green;
+   }
+
+   span.person{
+      color: white;
+   }
+
+   span.tag{
+      font-size: small;
+      color: rgb(255, 165, 0);
+   }
+   div.cart_button{
+      padding: 5px;
+      width: 100px;
+      margin: 2px;
+      border: 1px solid white;
+      color: white;
+      font-weight: bold;
+      font-family: Verdana;
+      background-color: #00BFFF;
+      float: right;
+
+
+   }
+   div.cart_button:hover{
+      cursor: hand;
+      cursor: pointer;
+   }
+   pre{
+      font-size: large;
+   }
+   #header{
+      font-size: large;
+
+   }
+   #header a{
+      padding: 50px;
+   }
+   div.story_image{
+      position: relative;
+      margin: 10px;
+   }
+   div.box{
+      height: auto;
+      word-wrap: break-word;
+   }
+   div.col{
+      flex: 1;
+   }
+
+   </style>
+   </head>
+<body style="height:100%">
+<!--	   <div id="outer_box">
+      <div id="inner_box">-->
+         <div style='margin-bottom: 10px' id="header">
+            <center>
+            <a href="/">Home</a>
+            <img src={{ url_for('static', filename='logo.jpg') }}/>
+            <a href="/read_me">About</a>
+            </center>
+         </div>
+         <div id="center" style="height:100%">
+         	<div class="col" id = "left_menu" style="font-size: 20px; height:100%;">
+               {{ left_menu| safe}}
+            </div>
+            
+            <div class="col" id = "main">
+
+            	{{ body|safe }}
+
+            </div>
+         </div>
+      <!--</div>
+   </div>-->
+
+	
+</body>
+</html>
